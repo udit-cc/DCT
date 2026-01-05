@@ -1,0 +1,33 @@
+Iscsi storage
+172.20.10.61
+255.255.255.0
+
+in ubuntu
+172.20.10.10
+255.255.255.0
+
+sudo apt update
+sudo apt install tgt
+sudo mkdir /storage
+sudo dd if=/dev/zero of=/storage/lun1.img bs=1G count=10
+sudo nano /etc/tgt/targets.conf
+
+<target iqn.2025-11.lab.target>
+backing-store /storage/lun1.img
+portal 172.20.10.10
+write-cache off
+</target>
+CTRl=O and Ctrl+X
+sudo systemctl restart tgt
+
+STEP 16: In the ESXi client, navigate to the Storage section.
+STEP 17: Click the Adapters tab, then click Software iSCSI.
+STEP 18: In the "Software iSCSI" window, click the toggle to Enabled.
+STEP 19: Scroll down to "Network port bindings" and click Add port binding.
+STEP 20: Select the vmk1 (IP Storage) interface and click Select.
+STEP 21: Scroll down to "Dynamic targets" and click Add dynamic target.
+STEP 22: Enter the iSCSI server's IP address: 172.20.10.10. Click Add target.
+STEP 24: After the configuration is saved, click the Rescan button.
+STEP 25: Wait for the "Rescan all HBA" task to complete.
+STEP 26: Click the Devices tab. A new 10 GB disk (the iSCSI LUN from the Ubuntu VM) will now be visible
+in the list.

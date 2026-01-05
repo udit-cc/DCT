@@ -1,0 +1,16 @@
+172.20.10.61
+172.20.10.10
+sudo apt update
+sudo apt install nfs-kernel-server
+sudo mkdir /NFS-Data
+sudo chmod 777 /NFS-Data
+sudo nano /etc/exports
+/NFS-Data 172.20.10.61(rw,sync,no_subtree_check,no_root_squash)
+sudo exportfs -a
+sudo systemctl restart nfs-kernel-server
+
+STEP 15: On the "Provide NFS mount details" page, fill in the following:
+● Name: NFS-Data
+● NFS server: 172.20.10.10 (The IP of your Ubuntu VM)
+● NFS share: /NFS-Data (The folder you created)
+● NFS version: Select NFS 3

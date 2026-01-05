@@ -1,0 +1,8 @@
+(ubuntu1.vmx, ubuntu1.vmdk, ubuntu1-flat.vmdk)
+
+
+terminal
+cd /vmfs/volumes/VM/ubuntu2/
+vmkfstools -i ubuntu1.vmdk -d thin ubuntu1-thin.vmdk
+mv ubuntu1.vmdk ubuntu1-thick.vmdk
+mv ubuntu1-thin.vmdk ubuntu1.vmdk
